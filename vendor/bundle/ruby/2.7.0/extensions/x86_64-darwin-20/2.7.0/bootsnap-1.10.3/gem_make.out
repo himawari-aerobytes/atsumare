@@ -1,0 +1,15 @@
+current directory: /Users/n-syuichi/IdeaProjects/atsumare/atsumare/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+/Users/n-syuichi/.rbenv/versions/2.7.2/bin/ruby -I /Users/n-syuichi/.rbenv/versions/2.7.2/lib/ruby/2.7.0 -r ./siteconf20220217-58138-bwdm9f.rb extconf.rb
+creating Makefile
+
+current directory: /Users/n-syuichi/IdeaProjects/atsumare/atsumare/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" clean
+
+current directory: /Users/n-syuichi/IdeaProjects/atsumare/atsumare/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR="
+compiling bootsnap.c
+linking shared-object bootsnap/bootsnap.bundle
+
+current directory: /Users/n-syuichi/IdeaProjects/atsumare/atsumare/vendor/bundle/ruby/2.7.0/gems/bootsnap-1.10.3/ext/bootsnap
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 bootsnap.bundle ./.gem.20220217-58138-147eznv/bootsnap
