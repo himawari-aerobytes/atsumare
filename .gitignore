@@ -29,3 +29,26 @@
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+
+#frontend
+# dependencies
+/frontend/node_modules/*
+/frontend/atsumare_frontend/.pnp
+/frontend/atsumare_frontend.pnp.js
+
+# testing
+/frontend/atsumare_frontend/coverage
+
+# production
+/frontend/atsumare_frontend/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

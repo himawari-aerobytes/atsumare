@@ -51,6 +51,7 @@ module V1
 
     def cancel_invite
       event = Event.find(params[:event_id])
+      event.members.delete(params[:member_ids])
     end
 
     private
