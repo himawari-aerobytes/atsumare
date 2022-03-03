@@ -10,21 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_02_20_042914) do
+ActiveRecord::Schema.define(version: 2022_03_02_063338) do
 
   create_table "appointments", force: :cascade do |t|
     t.integer "event_id"
     t.integer "member_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "status_id", null: false
     t.index ["event_id"], name: "index_appointments_on_event_id"
     t.index ["member_id"], name: "index_appointments_on_member_id"
+    t.index ["status_id"], name: "index_appointments_on_status_id"
   end
 
   create_table "divisions", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "event_members", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "event_id", null: false
+    t.integer "status_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_members_on_event_id"
+    t.index ["member_id"], name: "index_event_members_on_member_id"
+    t.index ["status_id"], name: "index_event_members_on_status_id"
+  end
+
+  create_table "event_part_zones", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "part_id", null: false
+    t.integer "zone_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["event_id"], name: "index_event_part_zones_on_event_id"
+    t.index ["part_id"], name: "index_event_part_zones_on_part_id"
+    t.index ["zone_id"], name: "index_event_part_zones_on_zone_id"
   end
 
   create_table "events", force: :cascade do |t|
@@ -36,6 +60,24 @@ ActiveRecord::Schema.define(version: 2022_02_20_042914) do
     t.boolean "isAllday"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "group_members", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.integer "group_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_members_on_group_id"
+    t.index ["member_id"], name: "index_group_members_on_member_id"
+  end
+
+  create_table "group_parts", force: :cascade do |t|
+    t.integer "group_id", null: false
+    t.integer "part_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["group_id"], name: "index_group_parts_on_group_id"
+    t.index ["part_id"], name: "index_group_parts_on_part_id"
   end
 
   create_table "groups", force: :cascade do |t|
@@ -70,7 +112,23 @@ ActiveRecord::Schema.define(version: 2022_02_20_042914) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "parts", force: :cascade do |t|
+    t.string "name"
+    t.string "location"
+    t.text "note"
+    t.integer "owner_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["owner_id"], name: "index_parts_on_owner_id"
+  end
+
   create_table "schoolnames", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -105,6 +163,21 @@ ActiveRecord::Schema.define(version: 2022_02_20_042914) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "owner_id", null: false
+    t.index ["owner_id"], name: "index_zones_on_owner_id"
   end
 
+  add_foreign_key "appointments", "statuses"
+  add_foreign_key "event_members", "events"
+  add_foreign_key "event_members", "members"
+  add_foreign_key "event_members", "statuses"
+  add_foreign_key "event_part_zones", "events"
+  add_foreign_key "event_part_zones", "parts"
+  add_foreign_key "event_part_zones", "zones"
+  add_foreign_key "group_members", "groups"
+  add_foreign_key "group_members", "members"
+  add_foreign_key "group_parts", "groups"
+  add_foreign_key "group_parts", "parts"
+  add_foreign_key "parts", "members", column: "owner_id"
+  add_foreign_key "zones", "members", column: "owner_id"
 end
